@@ -24,34 +24,25 @@ class SyncRepositoryWorker(context: Context, workerParams: WorkerParameters) :
         .build()
 
     private val breakingBadService: BreakingBadService = retrofit.create(BreakingBadService::class.java)
-
-    val disposable = CompositeDisposable()
-
-    var characters: List<Character> = mutableListOf()
+    private val disposable = CompositeDisposable()
 
     val characterDao = App.db.characterDao()
 
     override fun doWork(): Result {
         Timber.e("Synchronizing Characters")
-
         disposable.add(
             breakingBadService.getAllCharacters().doOnNext { response -> onResponse(response) }
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe({response -> onResponse(response)}, {t -> onFailure(t) })
         )
-        Timber.e("getcharacters ${characters.size}")
-
         return Result.success()
     }
 
-    private fun onFailure(t: Throwable) {
-
+    private fun onResponse(response: List<Character>) {
+        characterDao.insertCharacters(response)
     }
 
-    private fun onResponse(response: List<Character>) {
-        Timber.e("pabooo")
-        characters = response
-        characterDao.insertCharacters(response)
+    private fun onFailure(t: Throwable) {
     }
 }

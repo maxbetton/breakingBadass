@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mbetton.breakingbadass.Character
 import com.mbetton.breakingbadass.R
 import com.squareup.picasso.Picasso
 
-class CharactersListAdapter(private val characters: List<Character>,
+class CharactersListAdapter(private var characters: List<Character>,
                             private val listener : CharactersListAdapterListener?) : RecyclerView.Adapter<CharactersListAdapter.ViewHolder>(),
     View.OnClickListener {
 
@@ -53,6 +54,12 @@ class CharactersListAdapter(private val characters: List<Character>,
         when (v.id) {
             R.id.cardView -> listener?.onCharacterSelected(v.tag as Character)
         }
+    }
 
+    fun setData(newCharList: List<Character>) {
+        val diffUtil = CharacterDiffUtil(characters, newCharList)
+        val diffResult = DiffUtil.calculateDiff(diffUtil)
+        characters = newCharList
+        diffResult.dispatchUpdatesTo(this)
     }
 }

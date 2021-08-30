@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mbetton.breakingbadass.Character
 import com.mbetton.breakingbadass.R
+import com.mbetton.breakingbadass.databinding.ActivityCharacterDetailBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_character_detail.*
 

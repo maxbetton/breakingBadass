@@ -30,7 +30,6 @@ class CharactersListActivity : AppCompatActivity(),
             adapter = charactersListAdapter
         }
 
-
         viewModel = ViewModelProvider(this).get(CharactersListViewModel::class.java)
 
         viewModel.characters.observe(this, { newCharacters -> updateCharacters(newCharacters!!) })
@@ -48,5 +47,4 @@ class CharactersListActivity : AppCompatActivity(),
         intent.putExtra(CharacterDetailActivity.EXTRA_CHARACTER_ID, character.char_id)
         startActivity(intent)
     }
-
 }

@@ -9,11 +9,4 @@ import timber.log.Timber
 class CharactersListViewModel : ViewModel() {
 
     var characters : LiveData<List<Character>> = App.db.characterDao().getAllCharacters()
-    //var characters2 : List<Character> = App.api.loadCharacters()
-
-    fun refreshCharacters() {
-        Timber.e("refreshCharacters()")
-
-        App.repository.syncCharacterNow()
-    }
 }

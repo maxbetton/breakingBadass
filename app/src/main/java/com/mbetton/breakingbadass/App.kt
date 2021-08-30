@@ -13,16 +13,7 @@ class App : Application() {
     companion object {
         lateinit var db: AppDatabase
         lateinit var repository: CharacterRepository
-        val api = BreakingBadApi()
     }
-
-
-//    val retrofit = Retrofit.Builder()
-//        .baseUrl("https://www.breakingbadapi.com/api/")
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .build()
-
-   // val breakingBadService: BreakingBadService = retrofit.create(BreakingBadService::class.java)
 
     override fun onCreate() {
         super.onCreate()
@@ -35,25 +26,5 @@ class App : Application() {
         repository = CharacterRepository()
         repository.syncCharacterNow()
         repository.scheduleCharactersSync()
-
-
-//        val character = breakingBadService.getCharacterDetails(1)
-//
-//        character.enqueue(object: Callback<List<Character>> {
-//            override fun onResponse(
-//                call: Call<List<Character>>,
-//                response: Response<List<Character>>
-//            ) {
-//                Timber.e("${call.request()}")
-//                Timber.e("${response.body()}")
-//            }
-//
-//            override fun onFailure(call: Call<List<Character>>, t: Throwable) {
-//
-//                Timber.e("${t.message}")
-//                Timber.e("FAILLLLL")
-//            }
-//
-//        })
     }
 }
